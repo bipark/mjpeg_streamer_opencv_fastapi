@@ -1,5 +1,6 @@
 # Mjpeg Streamer Opencv with Fastapi
 * Mjpeg Streamer Opencv with Fastapi
+* Use Python to send camera images to http on your laptop or raspberry pie
 
 ## Run 
 * python3 main.py
