@@ -20,7 +20,7 @@ async def middleware(request, call_next):
             return False
         username, password = base64.b64decode(data).decode().split(':', 1)
         if username == 'admin' and password == 'masterkey':
-            response = call_next(request)
+            response = await call_next(request)
             return response
         else:
             return JSONResponse(status_code=403, content={"message": "Unauthorized"})
