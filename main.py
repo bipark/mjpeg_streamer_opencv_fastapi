@@ -1,3 +1,4 @@
+import base64
 import uvicorn
 
 from fastapi import FastAPI
@@ -6,6 +7,22 @@ from fastapi.responses import StreamingResponse
 import cv2
 
 app = FastAPI()
+
+
+@app.middleware("http")
+def middleware(request, call_next):
+
+    ## Check Auth
+    auth = request.headers.get('Authorization')
+    scheme, data = (auth or ' ').split(' ', 1)
+    if scheme != 'Basic': 
+        return False
+    username, password = base64.b64decode(data).decode().split(':', 1)
+    print(username, password)
+
+    response = call_next(request)
+
+    return response
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
